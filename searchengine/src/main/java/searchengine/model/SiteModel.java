@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Entity(name = "site")
+@Entity
+@Table(name = "site")
 @NoArgsConstructor
 //@AllArgsConstructor
 
@@ -36,7 +37,7 @@ public class SiteModel {
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "site", fetch = FetchType.EAGER)
     private List<PageModel> pages = new ArrayList<>();
 
     @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)

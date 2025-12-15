@@ -3,5 +3,6 @@ package searchengine.model;
 public enum Status {
     INDEXED,
     FAILED,
-    INDEXING
+    INDEXING,
+    NOT_FOUND
 }

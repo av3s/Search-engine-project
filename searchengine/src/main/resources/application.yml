@@ -1,23 +1,39 @@
 server: 
   port: 8080
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    username: root
-    password: toor
-    url: jdbc:mysql://localhost:3333/search_engine?useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
+    username: ${DS_USERNAME}
+    password: ${DS_PASSWORD}
+    url: jdbc:mysql://${DB_IP}:${DB_PORT}/search_engine?useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
     generate-ddl: true
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     show-sql: true
 indexing-settings:
   sites:
+    - url: https://en.wikipedia.org
+      name: Wikipedia
     - url: https://www.lenta.ru
       name: Лента.ру
     - url: https://www.skillbox.ru
       name: Skillbox
     - url: https://www.playback.ru
       name: PlayBack.Ru
+    - url: https://www.bbc.com
+      name: BBC News
+    - url: https://stackoverflow.com
+      name: Stack Overflow
+    - url: https://github.com
+      name: GitHub
+    - url: https://twitter.com
+      name: Twitter
+    - url: https://broken-shop.example.com
+      name: Broken Shop
+    - url: https://test-site.local
+      name: Test Site

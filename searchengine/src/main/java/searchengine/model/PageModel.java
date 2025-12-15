@@ -30,7 +30,7 @@ public class PageModel {
     private String path;
 
     @Column(name = "path_crc32", nullable = false, insertable = false, updatable = false)
-    private int pathCRC32;
+    private long pathCRC32;
 
     @Column(nullable = false)
     private int code;
@@ -49,6 +49,8 @@ public class PageModel {
         calculatePathCrc();
     }
 
+
+
     @PrePersist
     @PreUpdate
     private void calculatePathCrc() {
@@ -56,7 +58,7 @@ public class PageModel {
         else {
             CRC32 crc = new CRC32();
             crc.update(path.getBytes(StandardCharsets.UTF_8));
-            this.pathCRC32 = (int) crc.getValue();
+            this.pathCRC32 =  crc.getValue();
         }
     }
 
