@@ -1,4 +1,4 @@
-package searchengine.services;
+package searchengine.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import searchengine.repository.PageRepository;
 import searchengine.repository.SiteRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +39,14 @@ public class SiteService {
                     .toList();
             return new Site(siteModel.getId(), siteModel.getName(), pages, siteModel.getStatus());
         }).toList();
+    }
+
+    public long countAllUniquePages(){
+        AtomicLong countUniquePages = new AtomicLong();
+        siteRepository.findAll().forEach(siteModel -> {
+            countUniquePages.addAndGet(countUniquePages(siteModel.getId()));
+        });
+        return countUniquePages.get();
     }
 
     public int countUniquePages(Integer siteId) {
