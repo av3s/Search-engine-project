@@ -1,20 +1,23 @@
 package searchengine.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.query.Page;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Getter
+@Builder
 @Entity
 @Table(name = "site")
+
+
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 
 public class SiteModel {
     @Id
@@ -26,7 +29,7 @@ public class SiteModel {
     private Status status;
 
     @Column(name = "status_time", nullable = false)
-    private Long statusTime;
+    private LocalDateTime statusTime;
 
     @Column(name = "last_error", columnDefinition = "TEXT")
     private String lastError;

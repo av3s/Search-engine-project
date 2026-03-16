@@ -41,7 +41,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         for (Site site : sitesList) {
 
             // SiteModel siteModel = siteRepository.findByUrlIgnoringProtocol(site.getUrl());
-            DetailedStatisticsItem item = siteService.findByUrlIgnoringProtocol(site.getUrl())
+            DetailedStatisticsItem item = siteService.findSiteByUrlIgnoringProtocol(site.getUrl())
                     .map(siteModel -> {
                         DetailedStatisticsItem dItem = new DetailedStatisticsItem();
                         dItem.setUrl(siteModel.getUrl());
@@ -50,7 +50,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                         dItem.setLemmas(siteModel.getLemmas().size());
                         dItem.setError(siteModel.getLastError());
                         dItem.setStatusTime(siteModel.getStatusTime());
-                        dItem.setPages(siteService.countUniquePages(siteModel.getId()));
+                        dItem.setPages(siteService.getPagesCount(siteModel.getId()));
                         return dItem;
                     }).orElseGet(() -> new DetailedStatisticsItem(site.getUrl(), site.getName()));
             detailed.add(item);

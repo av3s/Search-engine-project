@@ -15,10 +15,11 @@ import searchengine.services.interfaces.StatisticsService;
 public class ApiController {
 
     private final StatisticsService statisticsService;
+    private final IndexingServiceImpl indexingService;
 
-
-    public ApiController(StatisticsService statisticsService) {
+    public ApiController(StatisticsService statisticsService, IndexingServiceImpl indexingService) {
         this.statisticsService = statisticsService;
+        this.indexingService = indexingService;
     }
 
     @GetMapping("/statistics")
@@ -40,8 +41,8 @@ public class ApiController {
 
     @PostMapping("/indexPage")
     public ResponseEntity<ApiResponse<Void>> indexPage(String url){
-        IndexingServiceImpl indexingService = new IndexingServiceImpl(url);
-        return  indexingService.pageIndexing();
+      //  IndexingServiceImpl indexingService = new IndexingServiceImpl();
+        return  indexingService.pageIndexing(url);
       // if (indexingService.pageIndexing()) return ResponseEntity.badRequest().body("{'result': false, 'error': \"sdsdsds\"}");
        //return ResponseEntity.ok().build();
     }

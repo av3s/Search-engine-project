@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
                 .body(error);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    /*@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidationException(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
 
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error(error));
+                .body(ApiResponse.error());
     }
 
     @ExceptionHandler(Exception.class)
@@ -78,20 +78,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error(error));
-    }
+                .body(ApiResponse.error(ex.));
+    }*/
 
     private HttpStatus determineHttpStatus(MessagesAndErrorCodes errorCode) {
         int code = errorCode.getCode();
-
-        // Маппинг кодов ошибок на HTTP статусы
-        return switch ((errorCode.getCode() & 0x0F00) >> 8) {
-            case 1 -> HttpStatus.BAD_REQUEST;              //400
-            case 2 -> HttpStatus.UNAUTHORIZED;             //401
-            case 4 -> HttpStatus.NOT_FOUND;                //404
+        return switch ((code & 0x0F00) >> 8) {
+            case 1 -> HttpStatus.BAD_REQUEST;
+            case 2 -> HttpStatus.BAD_GATEWAY;      // для PAGE_REDIRECTION и PAGE_INFORMATIONAL**
+            case 4 -> HttpStatus.NOT_FOUND;
             case 5 -> HttpStatus.PAYMENT_REQUIRED;         //402
-            case 6 -> HttpStatus.FORBIDDEN;                //403
-            default -> HttpStatus.INTERNAL_SERVER_ERROR;   //500
+            case 6 -> HttpStatus.FORBIDDEN;                //4
+            default -> HttpStatus.INTERNAL_SERVER_ERROR;
         };
+        // Маппинг кодов ошибок на HTTP статусы
     }
 }

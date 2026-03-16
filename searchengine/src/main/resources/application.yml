@@ -37,3 +37,11 @@ indexing-settings:
       name: Broken Shop
     - url: https://test-site.local
       name: Test Site
+connection-settings:
+  userAgent: Mozilla/10.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6
+  referrer: https://ya.ru/
+  ignoreHttpErrors: true
+  followRedirects: false
+  timeout_min: 50
+  timeout_max: 150
+  timeout: 10000

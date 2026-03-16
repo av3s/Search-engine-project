@@ -47,7 +47,6 @@ public interface SiteRepository extends JpaRepository<SiteModel, Integer> {
     @Transactional
     void deleteByStatus(Status status);
 
-
     int countByStatus(Status status);
 
     @Query("SELECT s FROM SiteModel s WHERE s.status = 'INDEXING' AND s.statusTime < :thresholdTime")
@@ -67,11 +66,12 @@ public interface SiteRepository extends JpaRepository<SiteModel, Integer> {
     Optional<SiteModel> findByUrl(String url);
 
 
-
-
     @Transactional
     @Query("SELECT p FROM PageModel p WHERE p.site.id = :id")
     public List<PageModel> findByIdWithPages(@Param("id") Integer id);
+
+    @Transactional
+    @Query("")
 
     public default boolean existsByUrlIgnoringCaseAndProtocol() {
         return false;

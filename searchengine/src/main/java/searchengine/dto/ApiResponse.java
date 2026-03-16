@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import searchengine.exceptions.MessagesAndErrorApi;
+import searchengine.exceptions.MessagesAndErrorCodes;
 
 @Data
 @AllArgsConstructor
@@ -17,14 +18,20 @@ public class ApiResponse<T> {
     private T data;
     private String error;
 
-    private static <T> ApiResponse<T> create(boolean result, T data, String error) {
+    public static <T> ApiResponse<T> create(boolean result, T data, String error) {
         return ApiResponse.<T>builder()
                 .result(true)
                 .data(data)
                 .error(error)
                 .build();
     }
+    public static <T> ApiResponse<T> ok(){
+        return create(true, null,null );
+    }
 
+    public <T> ApiResponse<T> error(MessagesAndErrorCodes error){
+        return create(false, null, error.getMessageTemplate());
+    }
 
 
 }

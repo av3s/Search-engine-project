@@ -1,6 +1,8 @@
 package searchengine.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,13 +12,16 @@ import java.util.List;
 import java.util.zip.CRC32;
 
 @Data
+
 @Entity
 @Table(name = "page", indexes = {
         @Index(name = "index_page_site", columnList = "site_id"),
         @Index(name = "index_page_site_code", columnList = "site_id,code"),
         @Index(name = "index_page_site_path", columnList = "site_id,path_crc32")
 })
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PageModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("ALL")
@@ -33,5 +34,8 @@ public class SitesList implements Iterable<Site>{
         return sites.stream()
                 .filter(site -> url.equals(site.getUrl()))
                 .findFirst();
+    }
+    public List<String> getUrls(){
+        return sites.stream().map(site -> site.getUrl()).collect(Collectors.toList());
     }
 }

@@ -8,9 +8,7 @@ public interface IndexingService {
 
     boolean stopIndexing();
 
-    ResponseEntity pageIndexing();
-
-    boolean checkingUrlFormat();
+    ResponseEntity pageIndexing(String url);
 
     boolean isIndexingRunning();
 
